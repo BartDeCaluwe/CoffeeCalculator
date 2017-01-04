@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>CoffeeCalculator</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="openSettingsModal()">
+      <ion-icon name="settings"></ion-icon>
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list radio-group [(ngModel)]="ratio" (ionChange)="calculateWater(ratio)">
+          <ion-list-header>
+            Coffee - Water ratio
+          </ion-list-header>
+
+          <ion-item>
+            <ion-label>1:15</ion-label>
+            <ion-radio checked="true" value="15"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>1:16</ion-label>
+            <ion-radio value="16"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>1:17</ion-label>
+            <ion-radio value="17"></ion-radio>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            Coffee:
+            <ion-badge *ngIf="metric" item-right >{{ coffee }}g</ion-badge>
+            <ion-badge *ngIf="!metric" item-right>{{ coffee }}oz</ion-badge>
+          </ion-list-header>
+          <ion-item>
+            <ion-range max="{{maxCoffee}}" [(ngModel)]="coffee" (ionChange)="calculateWater()">
+              <ion-icon range-left small name="cafe" (click)="decrementCoffee()"></ion-icon>
+              <ion-icon range-right name="cafe" (click)="incrementCoffee()"></ion-icon>
+            </ion-range>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-list-header>
+            Water:
+            <ion-badge *ngIf="metric" >{{ water }}g</ion-badge>
+            <ion-badge *ngIf="!metric" item-right >{{ water }} fl oz</ion-badge>
+          </ion-list-header>
+          <ion-item>
+            <ion-range max="1000" debounce="15" [(ngModel)]="water" (ionChange)="calculateCoffee()">
+              <ion-icon range-left small name="water" item-right (click)="decrementWater()"></ion-icon>
+              <ion-icon range-right name="water" (click)="incrementWater()"></ion-icon>
+            </ion-range>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
